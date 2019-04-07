@@ -4,19 +4,20 @@
 npm install yu-util --save
 ```
 
+
 # 引入
 ```javascript
 const { getFnNames, getType } = require('yu-util');
-```
+```  
 
-* getFnNames(obj)函数，打印对象和其原型链上的所有函数名，包括不可枚举的
+**`getFnNames(obj)`函数：打印对象和其原型链上的所有函数名，包括不可枚举的**
 ```javascript
 let obj = { fn:function(args){} };
 
 getFnNames(obj);
-```
+```  
 
-* getType(variate)函数，获取变量的类型
+**`getType(variate)`函数：获取变量的类型**
 ```javascript
 getType([]);  //Array
 getType({});  //Object
