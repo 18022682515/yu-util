@@ -1,0 +1,11 @@
+{
+  "name": "yu-util",
+  "version": "1.0.0",
+  "description": "通用函数",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "邓小宇",
+  "license": "ISC"
+}
