@@ -1,11 +1,19 @@
 {
   "name": "yu-util",
-  "version": "1.0.1",
-  "description": "通用函数",
+  "version": "1.0.2",
+  "description": "前后端通用的函数",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "author": "邓小宇",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/18022682515/yu-util.git"
+  },
+  "bugs": {
+    "url": "https://github.com/18022682515/yu-util/issues"
+  },
+  "homepage": "https://github.com/18022682515/yu-util#readme"
 }

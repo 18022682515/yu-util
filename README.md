@@ -1,4 +1,5 @@
 # yu-util
+  *前后端通用的函数封装：用于web前端和node.js*
 # 安装
 ```javascript
 npm install yu-util --save
