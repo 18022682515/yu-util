@@ -1,6 +1,6 @@
 {
   "name": "yu-util",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "前后端通用的函数",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/18022682515/yu-util/issues"
   },
-  "homepage": "https://github.com/18022682515/yu-util#readme"
+  "homepage": "https://github.com/18022682515/yu-util#readme",
+  "dependencies": {
+    "yu-util": "^1.0.4"
+  }
 }
