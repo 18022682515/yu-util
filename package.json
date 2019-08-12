@@ -1,8 +1,9 @@
 {
   "name": "yu-util",
-  "version": "1.0.8",
+  "version": "1.1.7",
   "description": "前后端通用的函数",
   "main": "index.js",
+  "types":"index.d.ts",
   "scripts": {
     "start": "node index.js"
   },
@@ -16,7 +17,7 @@
     "url": "https://github.com/18022682515/yu-util/issues"
   },
   "homepage": "https://github.com/18022682515/yu-util#readme",
-  "dependencies": {
-    "yu-util": "^1.0.4"
-  }
+  "__npminstall_done": "Sun Jun 23 2019 16:17:22 GMT+0800 (GMT+08:00)",
+  "_from": "yu-util@1.0.8",
+  "_resolved": "https://registry.npm.taobao.org/yu-util/download/yu-util-1.0.8.tgz"
 }

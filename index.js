@@ -1,24 +1,8 @@
-const o = require('./lib/Object.js');
-o.name = '宇';
+require('./lib/toArray.js');
+const { toModules } = require('./lib/toModule.js');
+const { toJSON } = require('./lib/toJSON.js');
+const { each,asyncEach,getType,copy,getFnNames } = require('./lib/toObject.js');
 
-o.getModules = function(names,str='') {
-	let moduls = {};
-	Object.keys(require.cache).forEach(key=>{
-        let obj = require.cache[key];
-        if(obj.exports){
-            var modul = obj.exports.default? obj.exports.default: obj.exports;
-        }
-		if(modul && modul.name){
-			let id = names.find(id=>{
-				return id+str===modul.name;
-            });
-            
-			id && (moduls[id] = modul);
-		}
-    });
-	return moduls;
-}
+module.exports = { toModules, toJSON, each,asyncEach,getType,copy,getFnNames };
 
-module.exports = Object.freeze(o);
-
-//{ each, asyncEach, getType, copy, getFnNames, getModules }
+//{ each, asyncEach, getType, copy, getFnNames, toJSON,getModules }
