@@ -11,6 +11,29 @@ npm install yu-util --save
 const { copy, getFnNames, getType, each, asyncEach, toJSON } = require('yu-util');
 ```  
 
+
+### `attributeObserver(obj,attrs,callback,bool)`：对象属性监听
+```javascript
+//attributeObserver(对象{},指定对象的多个属性名[],给对象指定属性赋值时触发的函数,布尔值)
+
+let obj = attributeObserver({},['id','name'],(key,val)=>{
+	return val+1;
+});
+obj.id = 2;   //给obj的id或name赋值时，会触发(key,val)=>{ return val+1 }函数
+console.log(obj.id);  //3
+
+
+//第四个参数：bool
+obj = attributeObserver(obj,['id'],(key,val)=>{
+	return val+10;
+},true);
+//true则会覆盖上次给id赋值时触发的回调函数,false则只生效第一次的回调函数
+
+obj.id = 2;
+console.log(obj.id)  //12
+```
+
+
 ### `copy(obj)`：深度复制对象或数组
 ```javascript
 //深度复制对象：
@@ -25,11 +48,11 @@ let arr1 = [2,{n:'b'},3,[1,4,5,{n:'a',arr:[1,2,3]}]];
 let arr2 = copy(arr1);
 ```
 
-### `getFnNames(obj)`：打印对象和其原型链上的所有函数名，包括不可枚举的
+### `getFnNames(obj)`：返回对象和其原型链上的所有函数名，包括不可枚举的
 ```javascript
 let obj = { fn:function(args){} };
 
-getFnNames(obj);
+let arr = getFnNames(obj);
 ```  
 
 ### `getType(variate)`：获取变量的类型
