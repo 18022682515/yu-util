@@ -8,7 +8,9 @@ npm install yu-util --save
 
 # 引入
 ```javascript
-const { copy, getFnNames, getType, each, asyncEach, toJSON } = require('yu-util');
+const { attributeObserver, copy, getType, toJSON } = require('yu-util');
+//或
+import { attributeObserver, copy, getType, toJSON } from 'yu-util' 
 ```  
 
 
@@ -48,14 +50,7 @@ let arr1 = [2,{n:'b'},3,[1,4,5,{n:'a',arr:[1,2,3]}]];
 let arr2 = copy(arr1);
 ```
 
-### `getFnNames(obj)`：返回对象和其原型链上的所有函数名，包括不可枚举的
-```javascript
-let obj = { fn:function(args){} };
-
-let arr = getFnNames(obj);
-```  
-
-### `getType(variate)`：获取变量的类型
+### `getType(variate,type)`：获取变量的类型
 ```javascript
 getType([]);  //Array
 getType({});  //Object
@@ -66,29 +61,53 @@ getType(null);  //Null
 getType(undefined);  //Undefined
 function fn(){};  getType(fn);  //Function
 function fn(){ return getType(arguments); }  fn();  //Arguments
+
+//直接返回判断结果
+getType([],'Array');  //true
+getType({},'Object');  //true
+getType(new Date(),'Date');  //true
+getType('','String');  //true
+getType(11,'Number');  //true
+getType(null,'Null');  //true
+getType(undefined,'Undefined');  //true
+getType(()=>{},'Function');  //true
 ```
 
-### `each(obj,callback)`：遍历对象，为对象的每一对key|value都执行一次callback函数
+### 遍历对象：`Object.prototype.each(callback)`：
 ```javascript
 let obj = {a:2,b:8};
-each(obj, (key,val)=>{
+obj.each((key,val)=>{
     console.log(key+'-'+val);   //a-2  b-8
 });
 ```
 
-### `asyncEach(obj,callback,interval)`：异步遍历对象，为对象的每一对key|value都异步执行一次callback函数
+### 异步遍历对象：`Object.prototype.asyncEach(callback,ms)`：
 ```javascript
 let obj = {a:2,b:8};
-asyncEach(obj, (key,val)=>{
+obj.asyncEach((key,val)=>{
     console.log(key,val);
 }, 2000);           //每2000毫秒异步执行一次回调函数
 ```
 
-### 扩展数组原型对象的函数:`Array.prototype.asyncForEach(callback, interval)`：异步遍历数组，为数组的每一个元素都异步执行一次callback函数
+### 遍历数组：`Array.prototype.each(callback)`
+```javascript
+let arr = ['a','b','c'];
+
+//each函数是深度复制本数组，用这个复制品做循环遍历
+arr.each((val,i,array)=>{
+	arr.shift();  //删除数组的元素，不会影响遍历
+	console.log(array);   //array是arr的深度复制品
+})
+```
+
+### 异步遍历数组：`Array.prototype.asyncEach(callback, ms)`：
 ```javascript
 let arr = [1,2,3,4,5,6];
-arr.asyncForEach((val,index)=>{
-    console.log(val,index);
+
+//asyncEach函数是深度复制本数组，用这个复制品做循环遍历
+arr.asyncEach((val,i,array)=>{
+    arr.shift();  //删除数组的元素，不会影响遍历
+		console.log(array);   //array是arr的深度复制品
 }, 2000);       //每隔2000毫秒异步执行一次回调函数
 ```
 
