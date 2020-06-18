@@ -1,5 +1,5 @@
 # yu-util
-  *前后端通用的函数封装：用于web前端和node.js*
+  *前后端通用的函数封装：用于web前端和nodejs端*
 # 安装
 ```javascript
 npm install yu-util --save
@@ -8,31 +8,58 @@ npm install yu-util --save
 
 # 引入
 ```javascript
-const { attributeObserver, copy, getType, toJSON } = require('yu-util');
+const { listener, intercept, copy, getType, toJSON } = require('yu-util');
 //或
-import { attributeObserver, copy, getType, toJSON } from 'yu-util' 
+import { listener, intercept, copy, getType, toJSON } from 'yu-util' 
 ```  
 
-
-### `attributeObserver(obj,attrs,callback,bool)`：对象属性监听
+### `listener(obj,attrs,callback)`：对象属性监听
 ```javascript
-//attributeObserver(对象{},指定对象的多个属性名[],给对象指定属性赋值时触发的函数,布尔值)
+//listener(对象, 需要监听的对象属性, 监听函数)
+obj = listener({},['id'],(key,val)=>{
+	console.log(1);
+});
 
-let obj = attributeObserver({},['id','name'],(key,val)=>{
+o = listener(obj,['id','name'],(key,val)=>{
+	console.log(2);
+});
+o.id = 11; //触发两个监听函数，分别打印1，2
+o.name = 'xiao'; //触发一个监听函数，打印2
+
+//监听所有属性
+obj = listener({},'*',(key,val)=>{
+	console.log(1);
+});
+obj.age = 22;		//触发监听函数，打印1
+```
+
+
+### `intercept(obj,attrs,callback,bool)`：对象属性拦截
+```javascript
+//intercept(对象, 需要拦截的对象属性, 拦截函数, 是否覆盖之前的拦截函数)
+obj = intercept({},['id','name'],(key,val)=>{
+	//拦截函数
 	return val+1;
 });
-obj.id = 2;   //给obj的id或name赋值时，会触发(key,val)=>{ return val+1 }函数
+obj.id = 2;   //给obj的id或name赋值时，触发拦截函数
 console.log(obj.id);  //3
 
+//拦截所有属性
+obj = intercept({},'*',(key,val)=>{
+	return val+1;
+});
+obj.age = 11;
+console.log(obj.age);  //12
 
-//第四个参数：bool
-obj = attributeObserver(obj,['id'],(key,val)=>{
+
+//第四个参数：bool 是否覆盖之前的拦截函数
+o = intercept(obj,['id'],(key,val)=>{
 	return val+10;
 },true);
-//true则会覆盖上次给id赋值时触发的回调函数,false则只生效第一次的回调函数
+//true则会覆盖之前给id设置的拦截函数,false则不能覆盖
 
-obj.id = 2;
-console.log(obj.id)  //12
+o.id = 2;
+console.log(o.id)  //12
 ```
 
 
@@ -73,18 +100,18 @@ getType(undefined,'Undefined');  //true
 getType(()=>{},'Function');  //true
 ```
 
-### 遍历对象：`Object.prototype.each(callback)`：
+### 遍历对象：`each(obj,callback)`：
 ```javascript
 let obj = {a:2,b:8};
-obj.each((key,val)=>{
+each(obj,(key,val)=>{
     console.log(key+'-'+val);   //a-2  b-8
 });
 ```
 
-### 异步遍历对象：`Object.prototype.asyncEach(callback,ms)`：
+### 异步遍历对象：`asyncEach(obj,callback,ms)`：
 ```javascript
 let obj = {a:2,b:8};
-obj.asyncEach((key,val)=>{
+asyncEach(obj,(key,val)=>{
     console.log(key,val);
 }, 2000);           //每2000毫秒异步执行一次回调函数
 ```
