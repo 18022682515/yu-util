@@ -13,6 +13,8 @@ const { listener, intercept, copy, getType, toJSON } = require('yu-util');
 import { listener, intercept, copy, getType, toJSON } from 'yu-util' 
 ```  
 
+
+
 ### `listener(obj,attrs,callback)`：对象属性监听
 ```javascript
 //listener(对象, 需要监听的对象属性, 监听函数)
@@ -61,6 +63,20 @@ o = intercept(obj,['id'],(key,val)=>{
 o.id = 2;
 console.log(o.id)  //12
 ```
+
+
+### `merge(o1,o2,bool)`：两个对象合并
+```javascript
+let o1 = { id:1,a:{name:'a1',arr:[1,2]},age:22 }
+let o2 = { id:2,a:{name:'a2',arr:[2,3],n:11} }
+let o = merge(o1,o2);
+console.log(o);		//{ id:1,a:{name:'a1',arr:[1,2,3],n:11},age:22 }
+
+//覆盖式合并
+let o = merge(o1,o2,true);
+console.log(o);		//{ id:2,a:{name:'a2',arr:[1,2,3],n:11},age:22 }
+```
+
 
 
 ### `copy(obj)`：深度复制对象或数组
