@@ -8,9 +8,9 @@ npm install yu-util --save
 
 # 引入
 ```javascript
-const { listener, intercept, copy, getType, toJSON } = require('yu-util');
+const { listener, intercept, merge, copy, getType, toJSON } = require('yu-util');
 //或
-import { listener, intercept, copy, getType, toJSON } from 'yu-util' 
+import { listener, intercept, merge, copy, getType, toJSON } from 'yu-util' 
 ```  
 
 
