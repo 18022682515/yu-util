@@ -8,10 +8,34 @@ npm install yu-util --save
 
 # 引入
 ```javascript
-const { listener, intercept, merge, copy, getType, toJSON } = require('yu-util');
+const { throttle, listener, intercept, merge, copy, getType, toJSON } = require('yu-util');
 //或
-import { listener, intercept, merge, copy, getType, toJSON } from 'yu-util' 
+import { throttle, listener, intercept, merge, copy, getType, toJSON } from 'yu-util' 
 ```  
+
+### `throttle(callback,ms)`防抖节流函数，给高频率事件触发设置的节流阀：
+```javascript
+//执行throttle会返回一个闭包函数
+let fn = throttle(function () {
+	console.log(1)
+}, 1000)
+
+//执行fn要间隔1000毫秒
+//第一次执行fn：
+fn();				//打印1
+//第二次执行fn：因为和第一次执行的时间没有间隔1000毫秒，所以第二次无效。
+fn();				//没有打印
+
+//1、执行fn就是执行throttle的callback
+//2、给fn传参数就是给throttle的callback传参数
+//3、throttle的callback里的this指向fn的调用者
+//比如：
+let fn = throttle(function (obj) {
+	console.log(obj)		//打印结果：{ id:1 }
+}, 1000)
+
+fn({ id:1 });
+```
 
 
 
